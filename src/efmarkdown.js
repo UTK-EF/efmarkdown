@@ -1,7 +1,6 @@
 'use strict';
 
 const slugify = require('slugify');
-
 const hljs = require('highlight.js')
 const md = require('markdown-it')();
 
@@ -43,19 +42,6 @@ const markdownContainers = [
         return `<a class="heading heading-collapse collapsed" data-toggle="collapse" href="#${id}">${m[1]}</a><div class="collapse" id="${id}">\n`
       } else {
         return '</div>\n'
-      }
-    }
-  },
-  {
-    name: 'figure',
-    validate: regexValidator(/^figure\s+(.*)$/),
-    render: function (tokens, idx) {
-      if (tokens[idx].nesting == 1) {
-        var m = tokens[idx].info.trim().match(/^figure\s+(.*)$/)
-        var params = m[1].split(/\s+/)
-        return '<figure class="figure float-' + params[0] + '">\n'
-      } else {
-        return '</figure>\n'
       }
     }
   }
