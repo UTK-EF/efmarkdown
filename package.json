@@ -2,10 +2,10 @@
   "name": "efmarkdown",
   "version": "1.0.0",
   "description": "Markdown rendering tailored to the needs of Engineering Fundamentals at UTK",
-  "main": "index.js",
+  "module": "src/efmarkdown.js",
   "scripts": {
-    "browserify": "browserify src/index.js -s efmarkdown -o dist/efmarkdown.js",
-    "watch": "watchify src/index.js --s efmarkdown -o dist/bundle.js  --debug --verbose -t [ babelify --presets [ @babel/preset-env ] ]",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -14,6 +14,7 @@
   ],
   "author": "Darren K. Maczka",
   "license": "ISC",
+  "browserslist": "> 0.25%, not dead",
   "dependencies": {
     "@geekeren/markdown-it-implicit-figures": "^0.9.2",
     "domready": "^1.0.8",
@@ -29,6 +30,11 @@
   "devDependencies": {
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
-    "babelify": "^10.0.0"
+    "babel-loader": "^8.0.6",
+    "babelify": "^10.0.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1",
+    "webpack-merge": "^4.2.2"
   }
 }

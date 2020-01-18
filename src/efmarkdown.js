@@ -1,10 +1,13 @@
 'use strict';
 
 const slugify = require('slugify');
-const hljs = require('highlight.js')
 const md = require('markdown-it')();
 
-const mc = require('markdown-it-container')
+import hljs from 'highlight.js/lib/highlight';
+import matlab from 'highlight.js/lib/languages/matlab';
+hljs.registerLanguage('matlab', matlab);
+
+import mc from 'markdown-it-container';
 
 const markdownContainers = [
   {
@@ -65,7 +68,8 @@ markdownContainers.reduce(function (acc, current) {
   return md
 }, md)
 
-md.use(require('markdown-it-anchor'))
+
+md//.use(require('markdown-it-anchor'))
   .use(require('markdown-it-decorate'))
   .use(require('markdown-it-deflist'))
   .use(require('markdown-it-katex'), { throwOnError: false, errorColor: '#cc0000' })
@@ -74,13 +78,14 @@ md.use(require('markdown-it-anchor'))
     tabindex: true
   })
 
+
 function regexValidator (regex) {
   return function (params) {
     return params.trim().match(regex)
   }
 }
 
-function renderString (rawContent) {
+export function renderString (rawContent) {
     var lines = rawContent.split('\n')
     var whitespace = null;
     var content = null;
@@ -107,5 +112,4 @@ function renderString (rawContent) {
     return md.render(rawContent)
 }
 
-
-module.exports = renderString;
+export default renderString;

@@ -1,0 +1,14 @@
+[data-toggle="collapse"].heading-collapse.collapsed:after {
+	content: " \025BA";
+}
+
+[data-toggle="collapse"].heading-collapse:after {
+	content: " \025BC";
+}
+
+aside {
+    padding: 0rem 1rem 1rem 1rem;
+    background: #EEE;
+    float: right;
+}
+
