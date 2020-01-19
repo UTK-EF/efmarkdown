@@ -7,7 +7,7 @@ require('domready')(function () {
   stylelink.href = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css';
   document.head.appendChild(stylelink);  
 
-  document.querySelectorAll('table[markdown="1"] td').forEach((el) => { console.log('in td', el); el.innerHTML = renderInline(el.innerHTML)});
+  document.querySelectorAll('table[markdown] td').forEach((el) => { el.innerHTML = renderInline(el.innerHTML)});
 })
 
 //module.exports = EFMarkdown; 
