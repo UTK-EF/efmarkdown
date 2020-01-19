@@ -1,6 +1,27 @@
 # EF Markdown
 
-## Browser Usage
+# Usage
+
+## Simple
+
+``` javascript
+// node.js
+var efmd = require('efmarkdown');
+
+var result = efmd.render('# EF Markdown is Great!');
+
+// browser
+var result = efmarkdown.render('# EF Markdown is Great!');
+
+// browser, render element content
+var el = document.getElementById('efmarkdown');
+efmarkdown.renderElement(el);
+
+// browser, render inline with no paragraph wrapping
+var inlineResult = efmarkdown.renderInline('**Inline** Render');
+```
+
+## Browser
 
 ``` html
 <!DOCTYPE html>
@@ -57,7 +78,7 @@
     jQuery(function() {
       console.time('markdown');
       $('.markdownit').each((idx, el) => {
-        el.innerHTML = efmarkdown(el.innerHTML);
+        efmarkdown.renderElement(el);
       });
       console.timeEnd('markdown');
     });
@@ -65,3 +86,4 @@
 </body>
 </html>
 ```
+

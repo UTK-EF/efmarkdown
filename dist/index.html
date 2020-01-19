@@ -17,7 +17,7 @@
   <div class="container-fluid">
   <h1>EF Render Bundle</h1>
   
-  <div class="markdownit">
+  <div id="efmarkdown">
     This is an alert <!-- {.alert .alert-primary} -->
 
     ::: section Announcements
@@ -65,19 +65,82 @@
     :::
     
   </div>
+
+  <div class="markdownit">
+    ## Tables
+
+    ### Markdown Syntax
+
+    #### Headerless
+    
+    |--------------------------------------------------------------------|------------------------------|
+    | ${s_2} = {s_1} + {v}_{avg}\cdot \Delta t$                          | Average Velocity Equation    |
+    | ${s}_{2}={s}_{1}+\left ( \frac{{v}^2_{2}-{v}^2_{1}}{2{a}}\right )$ | "No Time Available" Equation |
+    <!-- {table:.eftable}-->
+
+    #### With Headers
+
+    | `Column 1` | *Column 2* |
+    |:-----------|------------|
+    | a          | b          |
+    | c          | __d__      |
+
+    ### Or HTML
+    
+    <table class="eftable" markdown="1">
+    <tbody>
+    <tr>
+    <td>
+    ${s_2} = {s_1} + {v}_{avg}\cdot \Delta t$
+    </td>
+    <td>Average Velocity Equation</td>
+    </tr>
+    <tr>
+    <td>${v_2}={v_1}+{a}\cdot \Delta t$</td>
+    <td>Acceleration Equation</td>
+    </tr>
+    </tbody>
+    </table>
+
+<style type="text/css" rel="stylesheet">
+.eftable {
+empty-cells: hide;
+margin-right: auto;
+}
+
+td,th {
+    border: 1px solid #999;
+    padding: 0.5rem;
+}
+
+
+</style>
+
+    <script type="text/javascript">
+    </script>
+    
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </div>
+
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="./efmarkdown.js"></script>
   <script type="text/javascript">
-    jQuery(function() {
-      console.time('markdown');
-      $('.markdownit').each((idx, el) => {
+    console.time('markdown');
+
+    var el = document.getElementById('efmarkdown');
+    el.innerHTML = efmarkdown.render(el.innerHTML);
+
+    var list = document.querySelectorAll('.markdownit');
+    list.forEach(function(el) {
+      efmarkdown.renderElement(el);
+    });
+
+    /* or with jQuery
+    $('.markdownit').each((idx, el) => {
         efmarkdown.renderElement(el); // convenience function for el.innerHTML = efmarkdown.render(el.innerHTML)
       });
-      console.timeEnd('markdown');
-    });
+      console.timeEnd('markdown');*/
   </script>
 </body>
 </html>

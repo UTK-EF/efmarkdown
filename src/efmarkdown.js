@@ -72,6 +72,9 @@ markdownContainers.reduce(function (acc, current) {
 md//.use(require('markdown-it-anchor'))
   .use(require('markdown-it-decorate'))
   .use(require('markdown-it-deflist'))
+  .use(require('markdown-it-multimd-table'), {
+    headerless: true
+  })
   .use(require('markdown-it-katex'), { throwOnError: false, errorColor: '#cc0000' })
   .use(require('@geekeren/markdown-it-implicit-figures'), {
     figcaption: true,
@@ -112,4 +115,13 @@ export function renderString (rawContent) {
     return md.render(rawContent)
 }
 
-export default renderString;
+export { renderString as render };
+export function renderInline(text) {
+  return md.renderInline(text);
+}
+
+export function renderElement(el) {
+  el.innerHTML = renderString(el.innerHTML);
+};
+
+export default { render: renderString, renderElement, renderInline: md.renderInline };
