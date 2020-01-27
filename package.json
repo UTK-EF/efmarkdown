@@ -4,6 +4,7 @@
   "description": "Markdown rendering tailored to the needs of Engineering Fundamentals at UTK",
   "module": "src/efmarkdown.js",
   "scripts": {
+    "deploy": "npm run build && scp dist/efmarkdown.min.js efcms:~/js/",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +20,6 @@
     "@geekeren/markdown-it-implicit-figures": "^0.9.2",
     "domready": "^1.0.8",
     "highlight.js": "^9.17.1",
-    "highlightjs": "^9.16.2",
     "markdown-it": "^10.0.0",
     "markdown-it-anchor": "^5.2.5",
     "markdown-it-container": "^2.0.0",
