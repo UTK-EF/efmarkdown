@@ -3,9 +3,12 @@
 const slugify = require('slugify');
 const md = require('markdown-it')();
 
+//import hljs from 'highlight.js';
 import hljs from 'highlight.js/lib/highlight';
 import matlab from 'highlight.js/lib/languages/matlab';
+import excel from 'highlight.js/lib/languages/excel';
 hljs.registerLanguage('matlab', matlab);
+hljs.registerLanguage('excel', excel);
 
 import mc from 'markdown-it-container';
 
@@ -50,18 +53,24 @@ const markdownContainers = [
   }
 ]
 
-md.configure('default').set({ html: true,
+let mdconfig = { html: true,
 			      xhtmlOut: true,
 			      langPrefix: 'lang-',
-			      highlight: function(str, lang) {
-				  if (lang && hljs.getLanguage(lang)) {
-				      try {
-					  return hljs.highlight(lang, str).value;
-				      } catch (__) {}
-				  }
-				  return '';
-			      }
-			    })
+			   };
+
+if (hljs) {
+  mdconfig['highlight'] = function(str, lang) {
+	if (lang && hljs.getLanguage(lang)) {
+	  try {
+		return hljs.highlight(lang, str).value;
+	  } catch (__) {}
+	}
+	return '';
+  }
+}
+
+
+md.configure('default').set(mdconfig)
 
 markdownContainers.reduce(function (acc, current) {
   md.use(mc, current.name, current)
