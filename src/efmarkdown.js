@@ -12,6 +12,21 @@ hljs.registerLanguage('excel', excel);
 
 import mc from 'markdown-it-container';
 
+function enumerator(sep = '-') {
+  let names = {}
+  return (name) => {
+    if (typeof(names[name]) !== "undefined") {
+      names[name]++;
+    } else {
+      names[name] = 1;
+    }
+    
+    return name + sep + names[name];
+  }
+}
+
+let enumerate = enumerator();
+
 const markdownContainers = [
   {
     name: 'section',
@@ -44,7 +59,7 @@ const markdownContainers = [
       var m = tokens[idx].info.trim().match(/^collapse\s+(.*)$/)
       if (tokens[idx].nesting == 1) {
         const title = m[1],
-              id = slugify(m[1]);
+              id = enumerate(slugify(m[1]));
         return `<a class="heading heading-collapse collapsed" data-toggle="collapse" href="#${id}">${m[1]}</a><div class="collapse" id="${id}">\n`
       } else {
         return '</div>\n'
