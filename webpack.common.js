@@ -8,7 +8,12 @@ module.exports = {
 	path: path.resolve(__dirname, './dist'),
 	filename: 'efmarkdown.js',
     library: 'efmarkdown'
-  },
+  },/*
+  externals: {
+    hljs: 'highlight.js',
+    'highlight.js': 'hljs',
+    //katex: 'katex',
+  },*/
   module: {
 	rules: [
 	  {
