@@ -10,8 +10,5 @@ require('domready')(function () {
   document.querySelectorAll('table[markdown] td').forEach((el) => { el.innerHTML = renderInline(el.innerHTML)});
 })
 
-//module.exports = EFMarkdown; 
-
 export { render, renderElement };
 export default { render, renderElement, renderInline };
-//export default EFMarkdown;
