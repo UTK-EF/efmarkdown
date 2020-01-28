@@ -99,6 +99,9 @@ md//.use(require('markdown-it-anchor'))
   .use(require('markdown-it-multimd-table'), {
     headerless: true
   })
+  .use(require('markdown-it-sup'))
+  .use(require('markdown-it-sub'))
+  .use(require('markdown-it-footnote'))
   .use(require('markdown-it-katex'), { throwOnError: false, errorColor: '#cc0000' })
   .use(require('@geekeren/markdown-it-implicit-figures'), {
     figcaption: true,
