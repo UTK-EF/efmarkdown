@@ -68,6 +68,15 @@ const markdownContainers = [
   }
 ]
 
+const embedServices = {
+  'video': {
+    render: (videoID, url, options) => {
+      console.log('video embed render', videoID, url, options);
+      return `<div class="html5-video" data-file="${videoID}"></div>`;
+    }
+  },
+};
+
 let mdconfig = { html: true,
 			      xhtmlOut: true,
 			      langPrefix: 'lang-',
@@ -83,7 +92,6 @@ if (hljs) {
 	return '';
   }
 }
-
 
 md.configure('default').set(mdconfig)
 
@@ -103,6 +111,7 @@ md//.use(require('markdown-it-anchor'))
   .use(require('markdown-it-sub'))
   .use(require('markdown-it-footnote'))
   .use(require('markdown-it-katex'), { throwOnError: false, errorColor: '#cc0000' })
+  .use(require('./markdown-it-embed'), { services: embedServices })
   .use(require('@geekeren/markdown-it-implicit-figures'), {
     figcaption: true,
     tabindex: true
