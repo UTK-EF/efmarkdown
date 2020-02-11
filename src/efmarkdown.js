@@ -59,7 +59,9 @@ const markdownContainers = [
       var m = tokens[idx].info.trim().match(/^collapse\s+(.*)$/)
       if (tokens[idx].nesting == 1) {
         const title = m[1],
-              id = enumerate(slugify(m[1]));
+              //id = enumerate(slugify(m[1], {remove: /[*+~.()'"!:@]/g}));
+              id = enumerate(slugify(m[1], {remove: /\W/g}));
+              //id = btoa(m[1]);
         return `<a class="heading heading-collapse collapsed" data-toggle="collapse" href="#${id}">${m[1]}</a><div class="collapse" id="${id}">\n`
       } else {
         return '</div>\n'
