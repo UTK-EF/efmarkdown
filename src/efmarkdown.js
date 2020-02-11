@@ -150,7 +150,12 @@ export function renderString (rawContent) {
 	//console.log('stripping whitespace', whitespace, rawContent);
     }
     
-    return md.render(rawContent)
+  return md.render(rawContent)
+}
+
+export function splitRender(rawContent) {
+  let sections = rawContent.split('<!-- :break section -->');
+  return sections.length > 1 ? sections.map((section,index) => `<section>${renderString(section)}</section>`).join('\n') : renderString(sections[0]);
 }
 
 export { renderString as render };
@@ -162,4 +167,5 @@ export function renderElement(el) {
   el.innerHTML = renderString(el.innerHTML);
 };
 
-export default { render: renderString, renderElement, renderInline: md.renderInline };
+
+export default { render: renderString, splitRender, renderElement, renderInline: md.renderInline };

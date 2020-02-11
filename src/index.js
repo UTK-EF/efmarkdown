@@ -1,6 +1,6 @@
 'use strict';
 
-import { render, renderElement, renderInline } from './efmarkdown.js';
+import { render, renderElement, splitRender, renderInline } from './efmarkdown.js';
 require('domready')(function () {
   let stylelink = document.createElement('link');
   stylelink.rel = 'stylesheet';
@@ -10,5 +10,5 @@ require('domready')(function () {
   document.querySelectorAll('table[markdown] td').forEach((el) => { el.innerHTML = renderInline(el.innerHTML)});
 })
 
-export { render, renderElement };
-export default { render, renderElement, renderInline };
+export { render, renderElement, splitRender };
+export default { render, renderElement, splitRender, renderInline };
