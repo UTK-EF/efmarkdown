@@ -67,6 +67,36 @@ const markdownContainers = [
         return '</div>\n'
       }
     }
+  },
+  {
+    name: 'box',
+    validate: regexValidator(/^box\s+(?:{([^}]*)}\s+)?(.*)$/),
+    render: function(tokens, idx) {
+      var m = tokens[idx].info.trim().match(/^box\s+(?:{([^}]*)}\s+)?(.*)$/);
+      if (m != null && m[1] != null) {
+        var args = m[1].split();
+        //TODO: do something with args
+        //console.log('args', args);
+      }
+      if (tokens[idx].nesting == 1) {
+        return '<div class="card"><div class="card-header">' + m[2] + '</div><div class="card-body">\n'
+      } else {
+        return '</div></div>\n'
+      }
+    }
+  },
+  {
+    name: 'sample_output',
+    marker: '~',
+    validate: regexValidator(/^\s*(.*)\s*$/),
+    render: function(tokens, idx) {
+      var m = tokens[idx].info.trim().match(/^\s*(.*)\s*$/);
+      if (tokens[idx].nesting == 1) {
+        return '<pre class="' + m[1] + '"><samp>\n'
+      } else {
+        return '</samp></pre>\n'
+      }
+    }
   }
 ]
 
@@ -112,8 +142,8 @@ md//.use(require('markdown-it-anchor'))
   .use(require('markdown-it-sup'))
   .use(require('markdown-it-sub'))
   .use(require('markdown-it-footnote'))
-  .use(require('markdown-it-katex'), { throwOnError: false, errorColor: '#cc0000' })
   .use(require('./markdown-it-embed'), { services: embedServices })
+  .use(require('markdown-it-katex'), { throwOnError: false, errorColor: '#cc0000' })
   .use(require('@geekeren/markdown-it-implicit-figures'), {
     figcaption: true,
     tabindex: true

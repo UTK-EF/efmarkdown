@@ -10,5 +10,5 @@ require('domready')(function () {
   document.querySelectorAll('table[markdown] td').forEach((el) => { el.innerHTML = renderInline(el.innerHTML)});
 })
 
-export { render, renderElement, splitRender };
-export default { render, renderElement, splitRender, renderInline };
+export { render, renderElement, splitRender, renderInline };
+export default { render, renderElement, splitRender, renderInline};

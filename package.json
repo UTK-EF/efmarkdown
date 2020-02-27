@@ -1,12 +1,13 @@
 {
   "name": "efmarkdown",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Markdown rendering tailored to the needs of Engineering Fundamentals at UTK",
   "module": "src/efmarkdown.js",
   "scripts": {
     "deploy": "npm run build && scp dist/efmarkdown.min.js efcms:~/js/",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
+    "dev": "webpack --config webpack.dev.js && scp dist/efmarkdown.test.js efcms:~/js/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

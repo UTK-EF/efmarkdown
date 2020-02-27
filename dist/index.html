@@ -16,7 +16,7 @@
 <body>
   <div class="container-fluid">
   <h1>EF Render Bundle</h1>
-  
+    
   <div id="efmarkdown">
     This is an alert <!-- {.alert .alert-primary} -->
 
@@ -43,9 +43,10 @@
     
     And some sample output
 
-    <samp class="env-matlab">
-      ans =  23
-    </samp>
+    ~~~ env-matlab
+    >> 23;
+    ans =  23
+    ~~~
     
     # Examples
     
@@ -55,6 +56,14 @@
     x = \frac{-b\pm\sqrt{b^2 - 4ac}}{2a}
     $$
     
+    And math environments
+    $$
+    \begin{aligned}
+    F_{x} &= P\sin\theta - B\\
+    F_{y} &= P\cos\theta - W
+    \end{aligned}
+    $$
+
     ::: collapse Example 1
     
     Some text and math for example 1.
@@ -122,15 +131,21 @@ td,th {
   </div>
 
   </div>
-  
+
   <!--script src="./highlight.pack.js"></script-->
 <script
 			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
   crossorigin="anonymous"></script>
-<script src="./efmarkdown.js"></script>
+<script src="./efmarkdown.test.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script type="text/javascript">
+    console.log('efmarkdown', efmarkdown);
+    document.querySelectorAll('.mixedmarkdown')
+  .forEach(function(el) {
+    console.log("innerHTML", el.innerHTML, "textContent", el.textContent);
+  });
+
     console.time('markdown');
 
     var el = document.getElementById('efmarkdown');
@@ -144,8 +159,8 @@ td,th {
     /* or with jQuery
     $('.markdownit').each((idx, el) => {
         efmarkdown.renderElement(el); // convenience function for el.innerHTML = efmarkdown.render(el.innerHTML)
-      });
-      console.timeEnd('markdown');*/
+      });*/
+    console.timeEnd('markdown');
   </script>
 </body>
 </html>
