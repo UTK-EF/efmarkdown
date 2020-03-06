@@ -107,6 +107,11 @@ const embedServices = {
       return `<div class="html5-video" data-file="${videoID}"></div>`;
     }
   },
+    'link': {
+	render: (linkID, url, options) => {
+	    return `<a href="#" data-link-id="${linkID}"></a>`
+	}
+  }
 };
 
 let mdconfig = { html: true,
