@@ -19,6 +19,7 @@
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
     "@geekeren/markdown-it-implicit-figures": "^0.9.2",
+    "markdown-it-katex": "file:../markdown-it-katex",
     "domready": "^1.0.8",
     "highlight.js": "^9.17.1",
     "markdown-it": "^10.0.0",
