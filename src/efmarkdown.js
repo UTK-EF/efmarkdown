@@ -109,7 +109,7 @@ const embedServices = {
   },
     'link': {
 	render: (linkID, url, options) => {
-	    return `<a href="#" data-link-id="${linkID}"></a>`
+	    return `<a href="#" class="ef-link" data-link-id="${linkID}"></a>`
 	}
   }
 };

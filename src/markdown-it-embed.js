@@ -50,7 +50,7 @@ function customEmbed(md, options) {
     }
 
     theState.pos += theState.src.indexOf(')', theState.pos);
-    return true;
+      return true;
   }
 
   return embedReturn;
@@ -86,6 +86,6 @@ module.exports = function embedPlugin(md, options) {
   }
 
   //console.log('loading embed plugin', options);
-  theMd.renderer.rules.embed = tokenizeEmbed(theMd, theOptions);
-  theMd.inline.ruler.before('emphasis', 'embed', customEmbed(theMd, theOptions));
+    theMd.renderer.rules.embed = tokenizeEmbed(theMd, theOptions);
+    theMd.inline.ruler.before('emphasis', 'embed', customEmbed(theMd, theOptions));
 };
