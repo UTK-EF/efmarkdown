@@ -1,6 +1,6 @@
 {
   "name": "efmarkdown",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Markdown rendering tailored to the needs of Engineering Fundamentals at UTK",
   "module": "src/efmarkdown.js",
   "scripts": {
