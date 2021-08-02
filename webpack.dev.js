@@ -6,7 +6,7 @@ module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   output: {
-	path: path.resolve(__dirname, 'dist'),
+	path: path.resolve(__dirname, './dist'),
 	filename: '[name].test.js'
   },
   devServer: {
