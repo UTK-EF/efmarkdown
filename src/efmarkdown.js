@@ -1,68 +1,66 @@
 'use strict';
 
-const md = require('markdown-it')();
-
-//import hljs from 'highlight.js';
-const hljs = require('highlight.js/lib/core');
-import matlab from 'highlight.js/lib/languages/matlab';
-import excel from 'highlight.js/lib/languages/excel';
-hljs.registerLanguage('matlab', matlab);
-hljs.registerLanguage('excel', excel);
+import debug from './utils/debug';
 
 import mc from 'markdown-it-container';
 
-const embedServices = {
-  'video': {
-    render: (videoID, url, options) => {
-      console.log('video embed render', videoID, url, options);
-      return `<div class="html5-video" data-file="${videoID}"></div>`;
-    }
-  },
-    'link': {
-	render: (linkID, url, options) => {
-	    return `<a href="#" class="ef-link" data-link-id="${linkID}"></a>`
-	}
-  }
+let mdconfig = { 
+    html: true,
+    xhtmlOut: true,
+    langPrefix: 'lang-',
+    typographer: false
 };
 
-let mdconfig = { html: true,
-			      xhtmlOut: true,
-			      langPrefix: 'lang-',
-			   };
+    /*if (hljs) {
+        //var hljs = options.hljs;
+        mdconfig['highlight'] = function(str, lang) {
+            //console.log('code highlight', str, lang, hljs);
+            if (lang && hljs.getLanguage(lang)) {
+                try {
 
-if (hljs) {
-  mdconfig['highlight'] = function(str, lang) {
-	if (lang && hljs.getLanguage(lang)) {
-	  try {
-		return hljs.highlight(str, {"language": lang}).value;
-	  } catch (__) {}
-	}
-	return '';
-  }
-}
+                    return '<pre class="hljs"><code>' +
+                    hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+                    '</code></pre>';
+                } catch (__) {}
+            }
+            return '';
+        }
+    }*/
+import MarkdownBlockquoteCite from 'markdown-it-blockquote-cite';
 
-md.configure('default').set(mdconfig)
+const md = require('markdown-it')(mdconfig)
+    //.use(require('markdown-it-anchor'))
+    //.use(require('markdown-it-decorate'))
+    .use(require('markdown-it-deflist'))
+    .use(require('markdown-it-multimd-table'), {
+      headerless: true
+    })
+    .use(require('markdown-it-task-lists'))
+    .use(require('markdown-it-sup'))
+    .use(require('markdown-it-kbd'))
+    .use(require('markdown-it-sub'))
+    .use(require('markdown-it-footnote'))
+    .use(require('markdown-it-abbr'))
+    .use(require('markdown-it-attrs'))
+    .use(require('./rules_block/samp_fence'))
+    .use(require('./rules_block/notices'))
+    .use(MarkdownBlockquoteCite, { attributionPrefix: '--' })
+    //.use(require('./katex'))
+    .use(require('./markdown-it-var'));
+    /*use(require('@geekeren/markdown-it-implicit-figures'), {
+      figcaption: true,
+      tabindex: true
+    })*/
 
-md//.use(require('markdown-it-anchor'))
-  .use(require('markdown-it-decorate'))
-  .use(require('markdown-it-deflist'))
-  .use(require('markdown-it-multimd-table'), {
-    headerless: true
-  })
-  .use(require('markdown-it-task-lists'))
-  .use(require('markdown-it-sup'))
-  .use(require('markdown-it-kbd'))
-  .use(require('markdown-it-sub'))
-  .use(require('markdown-it-footnote'))
-  .use(require('./markdown-it-embed'), { services: embedServices })
-  .use(require('markdown-it-abbr'))
-  .use(require('@geekeren/markdown-it-implicit-figures'), {
-    figcaption: true,
-    tabindex: true
-  })
+  //import embedServices from  './embed-services.js';
+  //import embedPlugin from './markdown-it-embed';
 
-const { markdownContainers } = require('./markdown-containers.js');
-markdownContainers.forEach( (container) => md.use(mc, container.name, container));
+  //debug.log('embedServices', embedServices);
+  //md.use(embedPlugin, { services: embedServices })
+  
+const containers  = require('./markdown-containers.js');
+//console.log('containers', containers)
+containers.default.forEach( (container) => md.use(mc, container.name, container));
 
 export function renderString (rawContent) {
     var lines = rawContent.split('\n')
@@ -97,7 +95,7 @@ export function splitRender(rawContent) {
 
 export function addContainers(containers) {
     containers.forEach(function (container) {
-        console.log('adding container', container.name, mc);
+        debug.log('adding container', container.name, mc);
         md.use(mc, container.name, container);
     });
     return md;
@@ -117,7 +115,3 @@ export function renderElement(el) {
   el.innerHTML = renderString(el.innerHTML);
   return el;
 };
-
-
-
-//export default { render: renderString, /*splitRender,*/ renderElement, addContainer, renderInline: md.renderInline, use: md.use};

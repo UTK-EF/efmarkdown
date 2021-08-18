@@ -1,259 +1,597 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta charset="utf-8">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-<link rel="stylesheet"
-      href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/vs.min.css"></link>
-<link href="style.css" rel="stylesheet" type="text/css"></link>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    </link>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"
+        integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/vs2015.min.css">
+    <link href="./style.css?v=20210805" rel="stylesheet" type="text/css">
 
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"
+        integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"
+        crossorigin="anonymous"></script>
 
     <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
-        onload="renderMathInElement(document.body);"></script>
-  <title>EF Browser Render</title>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"
+        integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+    <!--
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"
+        integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>-->
+    <title>EF Browser Render</title>
 </head>
 
 <body>
+    <p>Download: <a href="./efmarkdown.zip?v=1.0.2">efmarkdown.zip</a></p>
     <div class="container-fluid">
-    <h1>EF Render Bundle</h1>
+        <h1>EF Render Bundle</h1>
 
-    <ul class="nav nav-tabs" id="mainNav" role="tablist">
-      <li class="nav-item">
-        <button class="nav-link active" id="typography-tab" data-bs-toggle="tab" data-bs-target="#typography" type="button" role="tab" aria-controls="typography" aria-selected="true">Typography</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="lists-tab" data-bs-toggle="tab" data-bs-target="#lists" type="button" role="tab" aria-controls="lists" aria-selected="false">Lists</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="math-tab" data-bs-toggle="tab" data-bs-target="#math" type="button" role="tab" aria-controls="math" aria-selected="false">Math</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="blocks-tab" data-bs-toggle="tab" data-bs-target="#blocks" type="button" role="tab" aria-controls="blocks" aria-selected="false">Blocks</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="tables-tab" data-bs-toggle="tab" data-bs-target="#tables" type="button" role="tab" aria-controls="tables" aria-selected="false">Tables</button>
-      </li>
-    </ul>
-  
-    <div class="tab-content" id="mainNavContent">
-        <div class="tab-pane fade show active markdownit" id="typography" role="tabpanel">
-        Use `[[...]]` to denote key presses or button clicks, e.g. 
-   
-        ``` markdown
-        Press [[Ctrl]]+[[V]] to paste. Press the [[=]]<!-- {.calculator} --> button on your calculator.
-        ```
-    
-        ::: box Output
-        Press [[Ctrl]]+[[V]] to paste. Press the [[=]]<!-- {.calculator} --> button on your calculator.
-        :::  
+        <ul class="nav nav-tabs" id="mainNav" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active" id="typography-tab" data-bs-toggle="tab" data-bs-target="#typography"
+                    type="button" role="tab" aria-controls="typography" aria-selected="true">Typography</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="lists-tab" data-bs-toggle="tab" data-bs-target="#lists" type="button"
+                    role="tab" aria-controls="lists" aria-selected="false">Lists</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="math-tab" data-bs-toggle="tab" data-bs-target="#math" type="button"
+                    role="tab" aria-controls="math" aria-selected="false">Math</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="notices-tab" data-bs-toggle="tab" data-bs-target="#notices" type="button"
+                    role="tab" aria-controls="notices" aria-selected="false">Notices</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="blocks-tab" data-bs-toggle="tab" data-bs-target="#blocks" type="button"
+                    role="tab" aria-controls="blocks" aria-selected="false">Blocks</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tables-tab" data-bs-toggle="tab" data-bs-target="#tables" type="button"
+                    role="tab" aria-controls="tables" aria-selected="false">Tables</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tables-tab" data-bs-toggle="tab" data-bs-target="#media" type="button"
+                    role="tab" aria-controls="media" aria-selected="false">Media</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tables-tab" data-bs-toggle="tab" data-bs-target="#embed" type="button"
+                    role="tab" aria-controls="embed" aria-selected="false">Embedded Content</button>
+            </li>
+        </ul>
 
-        </div>
-        <div class="tab-pane fade markdownit" id="lists" role="tabpanel">
-            ## Unordered lists
+        <div class="tab-content" id="mainNavContent">
+            <div class="tab-pane fade show active markdownit" id="typography" role="tabpanel">
 
-            - unordered list items start with - and a space
-            - items are not numbered
+                ## Attributes
 
-            ## Ordered lists
+                Most markdown elements can be modified with attributes
 
-            1. a list item
-            1. a second list item.
+                ``` markdown
+                Some_inline_markdown {.important}
+                ```
 
-            ## Definition Lists
+                Will include assign 'important' to the class list of the element rendered by 'Some_inline_markdown',
+                e.g.
 
-            ``` markdown
-            some term
-            : a very important concept definition
+                ``` markdown
+                ## Some Heading {.addendum}
+                ```
 
-            another term
-            : another very important concept definition
-            ```
+                will produce the html
 
-            ::: box Output
-            some term
-            : a very important concept definition
+                ``` html
+                <h2 class="addendum">Some Heading</h2>
+                ```
 
-            another term
-            : another very important concept definition
-            :::
+                ## Headings
 
-            ## Task Lists
+                ```
+                ## Level 2 Heading
 
-            ``` markdown
-            - [x] Item 1
-            - [ ]  Item 2
-            - [x] Item 3
-            ```
+                There should be a single blank line after a heading, before paragraph content.
 
-            ::: box Output
-            - [x] Item 1 <!-- {#cb-task1.task} -->
-            - [ ]  Item 2 <!-- {#cb-task2} -->
-            - [x] Item 3 <!-- {#cb-task3} -->
-            :::
-        </div>
-        <div class="tab-pane fade markdownit" id="blocks" role="tabpanel">
-            ::: spoiler click me
-            *content*
-            :::
+                ### Level 3 Heading
 
-            ::: aside Aside for Side Content
-            Some side-content that is related to the main content.
-            :::
-            
-            Here is a code block
-        
-            ``` matlab
-            values = randi(10,1,5);
-            for idx = 1:length(values)
+                There should only be a single level 1 heading on a page, and the page title is taking that role,
+                so content headings should start at level 2
+
+                #### Level 4 Heading
+
+                A paragraph under a level 4 headings.
+                ```
+
+                ::: example 
+                ## Level 2 Heading
+
+                There should be a single blank line after a heading, before paragraph content.
+
+                ### Level 3 Heading
+
+                There should only be a single level 1 heading on a page, and the page title is taking that role,
+                so content headings should start at level 2
+
+                #### Level 4 Heading
+
+                A paragraph under a level 4 headings.
+                :::
+
+                ## Code, Key Presses, Variables, oh my
+
+                Use back ticks (`\``) to enclose inline code.
+
+                ``` markdown
+                Use the `SUM` function to add up a range of values.
+                ```
+
+                ::: example
+                Use the `SUM` function to
+                :::
+
+                Use `[[...]]` to denote key presses or button clicks, e.g.
+
+                ``` markdown
+                Press [[Ctrl]]+[[V]] to paste. Press the [[=]]{.calculator} button on your calculator.
+                ```
+
+                ::: example
+                Press [[Ctrl]]+[[V]] to paste. Press the [[=]]{.calculator} button on your calculator.
+                :::
+
+                Use `[(...)]` to denote variables. Variables include math variables in equations, excel cell references,
+                or variables in a computer program.
+
+                ``` markdown {.nohljsln}
+                In the equation above, [(y)] is the height of the projectile. Enter a formula into cell [(B1)]{.excel}.
+                Assign your result to [(theResult)]
+                ```
+
+                ::: example
+                In the equation above, [(y)] is the height of the projectile. Enter a formula into cell [(B1)]{.excel}.
+                Assign your result to [(theResult)]
+                :::
+
+                ## Super and Subscript
+
+                C~2~
+                E=MC^2^
+
+            </div>
+            <div class="tab-pane fade markdownit" id="lists" role="tabpanel">
+                ## Unordered lists
+
+                ```
+                - unordered list items start with - and a space
+                - items are not numbered
+                ```
+
+                ::: example
+                - unordered list items start with - and a space
+                - items are not numbered
+                :::
+
+                ## Ordered lists
+
+                ```
+                1. a list item
+                1. a second list item.
+                   - Note that ordered lists do not have sequential numbers, just numbers.
+                   - Keeping them all 1 in the markdown makes for easier reordering.
+                   - nested content, including nested lists, should be indented to the the start of the parent list item text.
+                ```
+
+                ::: example
+                1. a list item
+                1. a second list item.
+                   - Note that ordered lists do not have sequential numbers, just numbers.
+                   - Keeping them all 1 in the markdown makes for easier reordering.
+                   - nested content, including nested lists, should be indented to the the start of the parent list item text.
+                :::
+
+                ## Definition Lists
+
+                ``` markdown
+                some term
+                : a very important concept definition
+
+                another term
+                : another very important concept definition
+                ```
+
+                ::: example
+                some term
+                : a very important concept definition
+
+                another term
+                : another very important concept definition
+                :::
+
+                ## Task Lists
+
+                ``` markdown
+                - [x] Item 1
+                - [ ] Item 2
+                - [x] Item 3
+                ```
+
+                ::: example
+                - [x] Item 1
+                <!-- {#cb-task1.task} -->
+                - [ ] Item 2
+                <!-- {#cb-task2} -->
+                - [x] Item 3
+                <!-- {#cb-task3} -->
+                :::
+            </div>
+            <div class="tab-pane fade markdownit" id="notices" role="tabpanel">
+                ### Notices
+
+                Markdown:
+
+                ``` markdown
+                ! This is an info notice.
+                ! Notices can have multiple lines and contain *markdown* markup.
+                ```
+
+                Output:
+
+                ! This is an info notice.
+                ! Notices can have multiple lines and contain *markdown* markup.
+
+                Markdown:
+
+                ``` markdown
+                !! This is a warning notice
+                !! Make sure nothing weird happens for multi-line notices with double.
+                !! And that an exclamation point can appear as expected at the end of a sentence!
+                ```
+
+                Output:
+
+                !! This is a warning notice
+                !! Make sure nothing weird happens for multi-line notices with double.
+                !! And that an exclamation point can appear as expected at the end of a sentence!
+
+                Markdown:
+
+                ``` markdown
+                !!! This is an urgent notice
+                ```
+
+                ::: box Output: {.output}
+                !!! This is an urgent notice
+                :::
+
+                Markdown:
+
+            </div>
+            <div class="tab-pane fade markdownit" id="blocks" role="tabpanel">
+                ## Content Chunks
+
+                ### Aside
+
+                ``` markdown
+                ::: aside Aside for Side Content
+                Some side-content that is related to the main content.
+                :::
+                ```
+
+                ::: aside Aside for Side Content
+                Some side-content that is related to the main content.
+                :::
+
+                ``` {.nohljsln}
+                > Here is a blockquote.
+                > Block quotes can have attribution.
+                > -- Some Author
+                ```
+
+                > Here is a blockquote.
+                > Block quotes can have attribution.
+                > -- Some Author
+
+                !! It is a known issue that blockquote markdown currently do not work. For the time being, use html:
+
+                ```
+                <blockquote>
+                    Here is a blockquote.
+                        <cite>-- Some Author</cite>
+                </blockquote>
+                ```
+
+                ::: example
+                <blockquote>
+                    Here is a blockquote.
+                        <cite>-- Some Author</cite>
+                </blockquote>
+                :::
+
+                ### Code and Sample Output
+
+                Here is a code block
+
+                <pre><code>
+                ``` matlab
+                values = randi(10,1,5);
+                for idx = 1:length(values)
+                    value = values(idx);
+                end
+                ```
+                </code></pre>
+
+                Example:
+
+                ``` matlab
+                values = randi(10,1,5);
+                for idx = 1:length(values)
                 value = values(idx);
-            end
-            ```
-            
-            And some sample output
-        
-            ~~~ env-matlab
-            >> 23;
-            ans =  23
-            ~~~
-        </div>
-        <div class="tab-pane fade markdownit" id="math" role="tabpanel">
-            The quadratic formula:
+                end
+                ```
 
-            $$
-            x = \frac{-b\pm\sqrt{b^2 - 4ac}}{2a}
-            $$
-            
-            And math environments
-            $$
-            \begin{aligned}
-            F_{x} &= P\sin\theta - B\\
-            F_{y} &= P\cos\theta - W
-            \end{aligned}
-            $$
-        
-            ::: collapse Example 1
-            
-            Some text and math for example 1.
-        
-            $$c^{2} = a^{2} + b^{2} - 2ab\cos(C)$$
-        
-            Inline math works too $\pi=3.1415\cdots$.
-            :::
+                <pre><code>
+                ``` html
+                <h1>A Heading</h1>
+                <p>A paragraph</p>
+                ```    
+                </code></pre>
+
+                Example:
+
+                ``` html
+                <h1>A Heading</h1>
+                <p>A paragraph</p>
+                ```
+
+                If instead of computer code you need to display sample output from a program, use the `~~~` sequence as
+                fences:
+
+                ``` markdown {.nohljsln}
+                ~~~ env-matlab
+                >> 23;
+                ans = 23
+                ~~~
+                ```
+
+                ~~~ env-matlab
+                >> 23;
+                ans = 23
+                ~~~
+
+                ## Containers
+
+                Containers a type of fenced block, similar to fenced code blocks using `:::` as the fence delimiter.
+
+
+                ```
+                ::: box Box with a Title and Attributes {.special} 
+                Content in a container will be parsed for *markdown*.
+                :::
+                ```
+
+                ::: box Box with a Title and Attributes {.special} 
+                Content in a container will be parsed for *markdown*.
+                The background comes from the stylesheet:
+                
+                ``` matlab {.nohljsln}
+                .card.special {
+                    background: #f1Aa43; 
+                }
+                ```
+                :::
+
+                ```
+                ::: box {.special} 
+                Containers do not need to have a title.
+                :::
+                ```
+
+                ::: box {.special} 
+                Containers do not need to have a title.
+                :::
+                
+                ### Convenience Containers
+
+                ```
+                ::: example Example 1
+                The example container is a shorthand for `box [title] {.example}`
+                :::
+                ```
+
+                ::: example Example 1
+                The example container is a shorthand for `box [title] {.example}`
+                :::
+
+            </div>
+            <div class="tab-pane fade markdownit" id="math" role="tabpanel">
+                ``` markdown
+                Inline equations can be actually inline like this $E=mc^s$, or on their own line
+
+                x = \frac{-b\pm\sqrt{b^2 - 4ac}}{2a}
+                ```
+                
+                Inline equations can be actually inline like this: $E=mc^2$, or on their own line 
+                
+                $x = \frac{-b\pm\sqrt{b^2 - 4ac}}{2a}$
+
+                Here is another inline $c^2=a^2+b^2-2ab \cos{C}$.
+
+                Block equations will display centered on a new line.
+
+                ```
+                $$
+                \begin{aligned}
+                F_{x} &= P\sin\theta - B\\\\
+                F_{y} &= P\cos\theta - W
+                \end{aligned}
+                $$
+                ```
+
+                $$
+                \begin{aligned}
+                F_{x} &= P\sin\theta - B\\
+                F_{y} &= P\cos\theta - W
+                \end{aligned}
+                $$
+
+                Theoretically, escaping the delimiters with a slash should prevent them from being typeset as math, for example spreadsheet cell [(\$C\$5)].
+            </div>
+            <div class="tab-pane fade markdownit" id="tables" role="tabpanel">
+                ## Tables
+
+                ### Markdown Syntax
+
+                #### Headerless
+
+                ```
+                |----------------------------------------------------------|------------------------------|
+                | ${s_2} = s_1 + {v}_{avg}\cdot \Delta t$                  | Average Velocity Equation    |
+                | $s_2 = s_1 + \left( \frac{v^2_2 - v^2_1}{2{a}}  \right)$ | "No Time Available" Equation |
+                {.eftable} <!-- attributes listed after will be applied to the <table> tag -->
+                ```
+
+                |----------------------------------------------------------|------------------------------|
+                | ${s_2} = s_1 + {v}_{avg}\cdot \Delta t$                  | Average Velocity Equation    |
+                | $s_2 = s_1 + \left( \frac{v^2_2 - v^2_1}{2{a}}  \right)$ | "No Time Available" Equation |
+                {.eftable}
+
+                #### With Headers
+
+                Include column names for a header row:
+
+                ```
+                | `Column 1` | *Column 2* |
+                |:-----------|------------|
+                | a | b |        <!-- the markdown column delimiters do not need to be aligned for the table to work -->
+                | c | __d__ |
+                ```
+
+                | `Column 1` | *Column 2* |
+                |:-----------|------------|
+                | a | b |
+                | c | __d__ | <!-- the markdown column delimiters do not need to be aligned for the table to work -->
+
+                ### Or HTML
+
+                HTML can be included, but add the `markdown="1"` attribute if there is markdown that should be parsed in the table contents
+
+                ``` html
+                <table class="eftable" markdown="1">
+                    <tbody>
+                        <tr>
+                            <td>
+                                ${s_2} = {s_1} + {v}_{avg}\cdot \Delta t$
+                            </td>
+                            <td>Average Velocity Equation</td>
+                        </tr>
+                        <tr>
+                            <td>${v_2}={v_1}+{a}\cdot \Delta t$</td>
+                            <td>Acceleration Equation</td>
+                        </tr>
+                    </tbody>
+                </table>
+                ```
+
+                <table class="eftable" markdown="1">
+                    <tbody>
+                        <tr>
+                            <td>
+                                ${s_2} = {s_1} + {v}_{avg}\cdot \Delta t$
+                            </td>
+                            <td>Average Velocity Equation</td>
+                        </tr>
+                        <tr>
+                            <td>${v_2}={v_1}+{a}\cdot \Delta t$</td>
+                            <td>Acceleration Equation</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <style type="text/css" rel="stylesheet">
+                    .eftable {
+                        empty-cells: hide;
+                        margin-right: auto;
+                    }
+
+                    .eftable td,
+                    .eftable th {
+                        border: 1px solid #999;
+                        padding: 0.5rem;
+                    }
+                </style>
+
+                <script type="text/javascript">
+                </script>
+
+            </div>
+            <div class="tab-pane fade markdownit" id="embed" role="tabpanel">
+                !!! Unfortunately, the current bolt rendering system does not support actually embedding content, so it is
+                not feasible to implement markdown syntax for these features at this time. Use the existing php functions and iframe
+                hacks.
+
+                ## Pages
+
+                ``` html
+                <iframe src="<?=$wwwroot?>/sys.php?f=faculty&embed" width="100%" height="500px"></iframe>
+                ```
+
+                Be sure to include the `embed` parameter in the query string of the url.
+
+                Note that in the examples below the php tags `<?` and `?>` are being erroneously converted to html comments in the code blocks. `<!--?` should be interpreted as `<?`, and `?-->` as <code>?></code>
+                ## Assessments
+
+                ``` php
+                <? boltQuestion() ?>
+                ```
+
+                ## Media
+
+                ``` php
+                <? boltImage() ?>
+                ```
+
+                ``` php
+                <? boltVideo() ?>
+                ```
+            </div>
+            <div class="tab-pane fade markdownit" id="media" role="tabpanel">
+                ![this should be image alt text, not a notice](someimage.png)
+            </div>
         </div>
-        <div class="tab-pane fade markdownit" id="tables" role="tabpanel">
-            ## Tables
-        
-            ### Markdown Syntax
-        
-            #### Headerless
-            
-            |--------------------------------------------------------------------|------------------------------|
-            | ${s_2} = {s_1} + {v}_{avg}\cdot \Delta t$                          | Average Velocity Equation    |
-            | ${s}_{2}={s}_{1}+\left ( \frac{{v}^2_{2}-{v}^2_{1}}{2{a}}\right )$ | "No Time Available" Equation |
-            <!-- {table:.eftable}-->
-        
-            #### With Headers
-        
-            | `Column 1` | *Column 2* |
-            |:-----------|------------|
-            | a          | b          |
-            | c          | __d__      |
-        
-            ### Or HTML
-            
-            <table class="eftable" markdown="1">
-            <tbody>
-            <tr>
-            <td>
-            ${s_2} = {s_1} + {v}_{avg}\cdot \Delta t$
-            </td>
-            <td>Average Velocity Equation</td>
-            </tr>
-            <tr>
-            <td>${v_2}={v_1}+{a}\cdot \Delta t$</td>
-            <td>Acceleration Equation</td>
-            </tr>
-            </tbody>
-            </table>
-        
-        <style type="text/css" rel="stylesheet">
-        .eftable {
-        empty-cells: hide;
-        margin-right: auto;
-        }
-        
-        td,th {
-            border: 1px solid #999;
-            padding: 0.5rem;
-        }
-        
-        
-        </style>
-        
-            <script type="text/javascript">
-            </script>
-            
-          </div>
-        
+
+        <div id="efmarkdown">
+
+        </div>
+
     </div>
-  
-  <div id="efmarkdown">
-    This is an alert <!-- {.alert .alert-primary} -->
 
-    ::: section Announcements
-    This is an anouncement.
-    - Item 1
-    - Item 2
-    :::
-  </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
-  </div>
+    <script src="./highlight.js"></script>
+    <script src="./efmarkdown.js"></script>
+    <script src="./auto-render.js"></script>
 
-<pre>jquery</pre>
-  <!--script src="./highlight.pack.js"></script-->
-<script
-			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-  crossorigin="anonymous"></script>
-<pre>sript efmarkdown.test.js</pre>
-<script src="./efmarkdown.test.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<pre>inline javascript</pre>
-<script type="text/javascript">
-    /*import('./markdown-containers.js')
-        .then(({markdownContainers}) => {
-            console.log('modules', markdownContainers);
-            efmarkdown.addContainers(markdownContainers);
-        });*/
-    
-    console.log('efmarkdown', efmarkdown);
-    document.querySelectorAll('.mixedmarkdown')
-    .forEach(function(el) {
-        console.log("innerHTML", el.innerHTML, "textContent", el.textContent);
-    });
+    <script type="text/javascript">
 
-    console.time('markdown');
+        document.addEventListener("DOMContentLoaded", function () {
+            console.time('markdown');
+            renderMarkdownInElements(document.querySelectorAll('.markdownit'));
+            console.timeEnd('markdown');
+        });
 
-    var el = document.getElementById('efmarkdown');
-    el.innerHTML = efmarkdown.render(el.innerHTML);
-
-    var list = document.querySelectorAll('.markdownit');
-    list.forEach(function(el) {
-      efmarkdown.renderElement(el);
-    });
-
-    /* or with jQuery
-    $('.markdownit').each((idx, el) => {
-        efmarkdown.renderElement(el); // convenience function for el.innerHTML = efmarkdown.render(el.innerHTML)
-      });*/
-    console.timeEnd('markdown');
-  </script>
+    </script>
 </body>
+
 </html>

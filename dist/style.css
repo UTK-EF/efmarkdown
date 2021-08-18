@@ -6,9 +6,72 @@
 	content: " \025BC";
 }
 
+table {
+    border: none;
+}
+
+td {
+    border: 0;
+}
+
 aside {
     padding: 0rem 1rem 1rem 1rem;
     background: #EEE;
     float: right;
 }
 
+.notices {
+    padding: 1px 1px 1px 30px;
+    margin: 15px 0;
+}
+
+.notices p {
+    padding-top: 1em;
+}
+
+.notices.warn {
+    border-left: 10px solid #f0ad4e;
+    background: #fcf8f2;
+    color: #df8a13;
+}
+
+.notices.urgent {
+    border-left: 10px solid #d9534f;
+    background: #fdf7f7;
+    color: #b52b27;
+}
+
+.notices.info {
+    border-left: 10px solid #5bc0de;
+    background: #f4f8fa;
+    color: #28a1c5;
+}
+
+.notices.extra {
+    border-left: 10px solid #5cb85c;
+    background: #f1f9f1;
+    color: #3d8b3d;
+}
+
+.card.example {
+    background: #f1f9f1;
+}
+
+.card.special {
+    background: #f1Aa43; 
+}
+
+.card {
+    margin-bottom: 1em; 
+}
+
+.hljs-ln-n {
+    background-color:darkslategrey;
+    padding-right: .5em;
+    padding-left: .5em;
+    margin-right: .5em;
+}
+
+table.hljs-ln {
+    margin-left: -1em;
+}

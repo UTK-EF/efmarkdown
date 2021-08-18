@@ -1,15 +1,13 @@
 const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+const {targets, createConfig} = require('./webpack.common');
 const path = require('path');
 
-module.exports = merge(common, {
-  mode: 'development',
-  devtool: 'inline-source-map',
-  output: {
-	path: path.resolve(__dirname, './dist'),
-	filename: '[name].test.js'
-  },
-  devServer: {
+const efmarkdownConfig = createConfig(targets.shift(), true, false);
+efmarkdownConfig.devServer = {
     contentBase: './dist',
-  },
-});
+}
+
+module.exports = ([
+    efmarkdownConfig,
+    ...targets.map(target => createConfig(target, true, false))  
+]);

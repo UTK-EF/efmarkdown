@@ -1,12 +1,16 @@
+import debug from './utils/debug';
+
 const EMBED_REGEX = /@\[([a-zA-Z].+)]\([\s]*(.*?)[\s]*[)]/im;
 
 function customEmbed(md, options) {
+  const optionsCopy = options;
   function embedReturn(state, silent) {
     var serviceEnd;
     var serviceStart;
     var token;
-    var videoID;
+    var urlText;
     var theState = state;
+    var url = null;
     const oldPos = state.pos;
 
     //console.log('embedReturn', state, silent);
@@ -22,12 +26,16 @@ function customEmbed(md, options) {
     }
 
     const service = match[1];
-    videoID = match[2];
+    urlText = match[2];
     const serviceLower = service.toLowerCase();
 
-    // If the videoID field is empty, regex currently make it the close parenthesis.
-    if (videoID === ')') {
-      videoID = '';
+    // If the urlText field is empty, regex currently make it the close parenthesis.
+    if (urlText === ')') {
+      urlText = '';
+    }
+
+    if (urlText.indexOf('://') > -1) {
+        url = new URL(urlText);     
     }
 
     serviceStart = oldPos + 2;
@@ -43,9 +51,9 @@ function customEmbed(md, options) {
       const newState = new theState.md.inline.State(service, theState.md, theState.env, []);
       newState.md.inline.tokenize(newState);
       token = theState.push('embed', '');
-      token.videoID = videoID;
+      token.urlParts = url;
       token.service = service;
-      token.url = match[2];
+      token.url = urlText;
       token.level = theState.level;
     }
 
@@ -61,13 +69,13 @@ const defaults = {
 
 function tokenizeEmbed(md, options) {
   function tokenizeReturn(tokens, idx) {
-    const videoID = md.utils.escapeHtml(tokens[idx].videoID);
+    const linkString = md.utils.escapeHtml(tokens[idx].url);
     const service = md.utils.escapeHtml(tokens[idx].service).toLowerCase();
 
     //console.log('tokenizeReturn', tokens, idx);
     if (options.services[service]) {
       const sopts = options.services[service];
-      return videoID === '' ? '<!-- ERROR: blank videoID -->' : sopts.render(videoID, tokens[idx].url, sopts.options);
+      return linkString === '' ? '<!-- ERROR: blank location string -->' : sopts.render(linkString, tokens[idx].urlParts, sopts.options);
     } else {
       return `<!-- ERROR: unknown service ${service} -->`;
     }
@@ -76,8 +84,7 @@ function tokenizeEmbed(md, options) {
   return tokenizeReturn;
 }
 
-
-module.exports = function embedPlugin(md, options) {
+export default function embedPlugin(md, options) {
   var theOptions = options;
   var theMd = md;
   if (theOptions) {
@@ -85,7 +92,7 @@ module.exports = function embedPlugin(md, options) {
     theOptions = defaults;
   }
 
-  //console.log('loading embed plugin', options);
+    debug.log('loading embed plugin', theOptions);
     theMd.renderer.rules.embed = tokenizeEmbed(theMd, theOptions);
     theMd.inline.ruler.before('emphasis', 'embed', customEmbed(theMd, theOptions));
 };
