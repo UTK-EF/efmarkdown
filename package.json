@@ -30,7 +30,7 @@
     "domready": "^1.0.8",
     "highlight.js": "^11.2.0",
     "highlightjs-line-numbers.js": "^2.8.0",
-    "markdown-it": "^12.0.0",
+    "markdown-it": "^12.3.2",
     "markdown-it-abbr": "^1.0.4",
     "markdown-it-anchor": "^8.1.0",
     "markdown-it-attrs": "^4.0.0",
