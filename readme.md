@@ -36,6 +36,19 @@ var inlineResult = efmarkdown.renderInline('**Inline** Render');
       href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/vs.min.css">
   <link href="style.css" rel="stylesheet" type="text/css"></link>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script> <!-- jquery is not required, just used for the demo -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script> <!-- without bootstrap style and js, the collapse container will not work as expected -->
+  <script src="efmarkdown.js" defer></script>
+  <script type="text/javascript">
+    jQuery(function() {
+      console.time('markdown');
+      $('.markdownit').each((idx, el) => {
+        efmarkdown.renderElement(el);
+      });
+      console.timeEnd('markdown');
+    });
+  </script>
+
   <title>EF Browser Render</title>
 </head>
 
@@ -69,20 +82,6 @@ var inlineResult = efmarkdown.renderInline('**Inline** Render');
     :::
     
   </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- jquery is not required, just used for the demo -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> <!-- without bootstrap style and js, the collapse container will not work as expected -->
-  <script src="efmarkdown.js"></script>
-
-  <script type="text/javascript">
-    jQuery(function() {
-      console.time('markdown');
-      $('.markdownit').each((idx, el) => {
-        efmarkdown.renderElement(el);
-      });
-      console.timeEnd('markdown');
-    });
-  </script>
 </body>
 </html>
 ```
